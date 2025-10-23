@@ -12,7 +12,7 @@ function header() {
           <div>
             <Link href="/">
               <Image
-                className="w-auto h-[70px]"
+                className="w-auto h-[60px]"
                 src="/logo.png"
                 width="1000"
                 height="1000"
@@ -26,18 +26,6 @@ function header() {
           <div>
             <LiveGoldPrice />
           </div>
-          {/* <div className="flex gap-2 items-center justify-center">
-            <div>
-              <p className="text-sm">Gold Price</p>
-            </div>
-            <div className="w-[40px] flex bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB000] rounded-full h-[40px] text-center justify-center items-center">
-              <p>18K</p>
-            </div>
-
-            <div>
-              <p className="text-sm">₹1,25,000</p>
-            </div>
-          </div> */}
         </div>
       </div>
     </>
