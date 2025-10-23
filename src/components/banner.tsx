@@ -33,16 +33,16 @@ function Banner() {
             <Image
               width="2000"
               height="800"
-              src="/banner/banner-1.webp"
+              src="/banner/web-banner-1.png"
               alt="Disanmart"
               className="w-full h-[33vh] md:h-full object-cover "
             />
             <div className="absolute left-[10%] top-[50%] transform translate-y-[-50%]">
               <h2 className="animate-fade-in-up  w-[70%] lg:w-full text-2xl md:text-4xl lg:text-6xl font-semibold mb-4 ">
-                Welcome winter trendy style
+                Elegance That Shines Forever
               </h2>
               <p className="mb-4 text-xs md:text-md lg:text-lg w-[70%] lg:w-full">
-                Introducing the Disanmart women&apos;s winter Fashion
+                Classic to modern designs, Penerra adds luxury to every moment.
               </p>
 
               <Button asChild size="lg">
@@ -56,16 +56,16 @@ function Banner() {
             <Image
               width="2000"
               height="800"
-              src="/banner/banner-2.webp"
+              src="/banner/web-banner-2.png"
               alt="Disanmart"
               className="w-full h-[33vh] md:h-full object-cover "
             />
             <div className="absolute left-[10%] top-[50%] transform translate-y-[-50%]">
               <h2 className="animate-fade-in-up  w-[70%] lg:w-full text-2xl md:text-4xl lg:text-6xl font-semibold mb-4 ">
-                Welcome trendy style
+                Indulge in Exquisite Gold Jewelry That Shines With Every Moment
               </h2>
               <p className="mb-4 text-xs md:text-md lg:text-lg w-[70%] lg:w-full">
-                Introducing the Disanmart women&apos;s winter Fashion
+                Discover handcrafted designs that blend tradition and contemporary luxury.
               </p>
               <Button asChild size="lg">
                 <Link className="cursor-pointer" href="/shop">
@@ -78,16 +78,16 @@ function Banner() {
             <Image
               width="2000"
               height="800"
-              src="/banner/banner-3.webp"
+              src="/banner/web-banner-1.png"
               alt="Disanmart"
               className="w-full h-[33vh] md:h-full object-cover "
             />
             <div className="absolute left-[10%] top-[50%] transform translate-y-[-50%]">
               <h2 className="animate-fade-in-up  w-[70%] lg:w-full text-2xl md:text-4xl lg:text-6xl font-semibold mb-4 ">
-                Welcome winter trendy style
+                Where Every Piece of Gold Jewelry Tells a Story of Elegance and Grace
               </h2>
               <p className="mb-4 text-xs md:text-md lg:text-lg w-[70%] lg:w-full">
-                Introducing the Disanmart women&apos;s winter Fashion
+                Penerra offers timeless creations that celebrate your unique style.
               </p>
 
               <Button asChild size="lg">
