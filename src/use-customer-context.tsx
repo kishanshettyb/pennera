@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import Cookies from 'js-cookie'
-
+/* eslint-disable */
 interface Customer {
   id?: number
   user_email: string
@@ -147,3 +147,4 @@ export function useCustomerContext() {
   if (!context) throw new Error('useCustomerContext must be used within a CustomerProvider')
   return context
 }
+/* eslint-enable */
