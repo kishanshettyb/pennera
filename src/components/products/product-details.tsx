@@ -12,38 +12,7 @@ import { useAddToCart } from '@/services/mutation/cart/cart'
 import FeaturesBar from '../features-bar'
 import { ProductGallery } from './product-gallery'
 import { CartSidebar } from '../cart-sidebar'
-// import { CartSidebar } from '../cart-sidebar'
-
-type ProductAttribute = {
-  id: number
-  name: string
-  slug: string
-  variation: boolean
-  visible: boolean
-  options: string[]
-}
-
-type Product = {
-  id: number
-  price: number
-  name: string
-  short_description: string
-  description: string
-  regular_price: string
-  sale_price: string
-  stock_status: string
-  price_html: string
-  sku: string
-  rating_count: number
-  attributes: ProductAttribute[]
-  images: []
-  variations: number[]
-  default_attributes: Array<{
-    id: number
-    name: string
-    option: string
-  }>
-}
+import { Product } from '@/types/productTypes'
 
 type SelectedVariation = {
   attribute: string
@@ -306,9 +275,9 @@ function ProductDetails() {
           </div>
 
           {/* Product Tabs */}
-          <div className="flex justify-center    my-20">
+          <div className="flex justify-center my-20">
             <Tabs defaultValue="details" className="w-full bg-transparent">
-              <div className="flex flex-col lg:flex-row justify-center   overflow-scroll ">
+              <div className="flex flex-col lg:flex-row justify-center overflow-scroll">
                 <TabsList className="py-5 flex flex-row gap-5 rounded-md">
                   <TabsTrigger className="text-lg text-slate-600 rounded-md p-4" value="details">
                     Product Details
@@ -325,10 +294,7 @@ function ProductDetails() {
                 </TabsList>
               </div>
 
-              <TabsContent
-                value="details"
-                className="p-6 border rounded-xl shadow-2xl shadow-slate-100 product-description"
-              >
+              <TabsContent value="details" className="p-6 border rounded-xl   product-description">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: product.description || 'No description available'

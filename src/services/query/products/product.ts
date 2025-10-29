@@ -4,14 +4,7 @@ import {
   getAllProductsPagination,
   type GetAllProductsParams
 } from '@/services/api/product/product'
-
-export type Product = {
-  id: number
-  name: string
-  price: string
-  images?: { src: string }[]
-  [key: string]: unknown
-}
+import { Product } from '@/types/productTypes'
 
 /**
  * ✅ Get all products (non-paginated)
