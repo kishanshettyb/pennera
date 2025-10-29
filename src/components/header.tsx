@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { MenuItems } from './menu/menuItems'
-import LiveGoldPrice from './menu/liveGoldPrice'
 
 function header() {
   return (
@@ -23,9 +22,7 @@ function header() {
           <div>
             <MenuItems />
           </div>
-          <div>
-            <LiveGoldPrice />
-          </div>
+          <div></div>
         </div>
       </div>
     </>

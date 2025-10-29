@@ -1,5 +1,6 @@
 'use client'
 import Banner from '@/components/banner'
+import CategorySection from '@/components/products/category-section'
 // import FeaturesBar from '@/components/features-bar'
 // import Marquee from '@/components/marquee'
 // import PopularProducts from '@/components/popular-products'
@@ -21,6 +22,11 @@ export default function Home() {
   return (
     <div>
       <Banner />
+      <section className="py-[40px] lg:py-[80px] bg-[linear-gradient(to_right,#f8fafc,#fafafa,#f8fafc,#fafafa)]">
+        <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
+          <CategorySection />
+        </div>
+      </section>
       {/* <section className="py-5 bg-[linear-gradient(to_right,#fdf2f8,#eef2ff,#eff6ff,#ecfdf5)]">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <FeaturesBar />
