@@ -24,6 +24,7 @@ export default function GoldPriceTicker() {
   }, [prices.length])
 
   const current = prices[index]
+  console.log(animate)
 
   return (
     <div className="flex gap-2 items-center justify-center overflow-hidden w-[250px] border  rounded-2xl border-orange-100">

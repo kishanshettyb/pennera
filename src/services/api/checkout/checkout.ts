@@ -1,3 +1,4 @@
+import { CheckoutCartData } from '@/types/checkoutTypes'
 import axios from 'axios'
 
 // 🔹 Utility: Get cookie value
@@ -35,7 +36,7 @@ function getAxiosClient() {
 }
 
 // 🔹 Checkout order by ID
-export const checkoutOrder = async (orderId: number, data) => {
+export const checkoutOrder = async (orderId: number, data: unknown) => {
   const nonce = getCookie('wc_nonce')
   const client = getAxiosClient()
 
@@ -65,39 +66,7 @@ export const getCheckoutData = async () => {
 }
 
 // 🔹 Checkout cart
-export const checkoutCart = async (data: {
-  billing_address: {
-    first_name: string
-    last_name: string
-    company?: string
-    address_1: string
-    address_2?: string
-    city: string
-    state: string
-    postcode: string
-    country: string
-    email: string
-    phone: string
-  }
-  shipping_address: {
-    first_name: string
-    last_name: string
-    company?: string
-    address_1: string
-    address_2?: string
-    city: string
-    state: string
-    postcode: string
-    country: string
-    phone?: string
-  }
-  customer_note?: string
-  create_account?: boolean
-  customer_password?: string
-  payment_method: string
-  payment_data?: { key: string; value: string }[]
-  extensions?: Record<string, unknown>
-}) => {
+export const checkoutCart = async (data: CheckoutCartData) => {
   const nonce = getCookie('wc_nonce')
   const client = getAxiosClient()
 

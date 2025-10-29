@@ -4,14 +4,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { AxiosError } from 'axios'
 import { addToWishlist, removeFromWishlist } from '@/services/api/wishlist/wishlist'
+import { AddWishlistData, RemoveWishlistData } from '@/types/wishlistTypes'
 
 export function useAddToWishlist() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data) => addToWishlist(data),
+    mutationFn: (data: AddWishlistData) => addToWishlist(data),
 
-    onError: (error: Error | AxiosError) => {
+    onError: (error: unknown) => {
       let message = 'Unable to add item to wishlist.'
       if (error instanceof AxiosError) {
         message = error.response?.data?.message ?? error.message
@@ -29,9 +30,7 @@ export function useAddToWishlist() {
     },
 
     onSettled: async (_, error) => {
-      if (!error) {
-        await queryClient.invalidateQueries({ queryKey: ['wishlist'] })
-      }
+      if (!error) await queryClient.invalidateQueries({ queryKey: ['wishlist'] })
     }
   })
 }
@@ -40,9 +39,9 @@ export function useRemoveFromWishlist() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data) => removeFromWishlist(data),
+    mutationFn: (data: RemoveWishlistData) => removeFromWishlist(data),
 
-    onError: (error: Error | AxiosError) => {
+    onError: (error: unknown) => {
       let message = 'Unable to remove item from wishlist.'
       if (error instanceof AxiosError) {
         message = error.response?.data?.message ?? error.message
@@ -60,9 +59,7 @@ export function useRemoveFromWishlist() {
     },
 
     onSettled: async (_, error) => {
-      if (!error) {
-        await queryClient.invalidateQueries({ queryKey: ['wishlist'] })
-      }
+      if (!error) await queryClient.invalidateQueries({ queryKey: ['wishlist'] })
     }
   })
 }

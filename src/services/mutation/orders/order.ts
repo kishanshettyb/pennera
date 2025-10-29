@@ -6,7 +6,7 @@ export function useUpdateOrderById() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (payload: { orderId: string; data }) =>
+    mutationFn: (payload: { orderId: string; data: unknown }) =>
       updateOrderByOrderId(payload.orderId, payload.data),
 
     onError: () => {

@@ -22,6 +22,7 @@ export type GetAllProductsParams = {
   max_price?: number
   attribute?: string // e.g. "pa_color"
   attribute_term?: string // e.g. "15"
+  pageParam?: number
 }
 /* eslint-disable */
 
