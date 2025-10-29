@@ -1,5 +1,8 @@
 'use client'
 import Banner from '@/components/banner'
+import FeaturesBar from '@/components/features-bar'
+import PopularProducts from '@/components/popular-products'
+import PopularProductsGrid from '@/components/popular-products-grid'
 import CategorySection from '@/components/products/category-section'
 // import FeaturesBar from '@/components/features-bar'
 // import Marquee from '@/components/marquee'
@@ -27,15 +30,21 @@ export default function Home() {
           <CategorySection />
         </div>
       </section>
-      {/* <section className="py-5 bg-[linear-gradient(to_right,#fdf2f8,#eef2ff,#eff6ff,#ecfdf5)]">
+      <section className="py-5 bg-[linear-gradient(to_right,#fdf2f8,#eef2ff,#eff6ff,#ecfdf5)]">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <FeaturesBar />
         </div>
       </section>
+
       <section className="py-[60px]">
         <PopularProductsGrid />
       </section>
-
+      <section className="py-[60px] bg-white">
+        <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
+          <PopularProducts />
+        </div>
+      </section>
+      {/*  
       <section className="py-[60px] bg-[linear-gradient(to_right,#f8fafc,#fafafa,#f8fafc,#fafafa)]">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <CategorySection />
@@ -50,11 +59,7 @@ export default function Home() {
           '🎁 Limited Time Offer — Grab Now!'
         ]}
       />
-      <section className="py-[60px] bg-white">
-        <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
-          <PopularProducts />
-        </div>
-      </section> */}
+      */}
     </div>
   )
 }
