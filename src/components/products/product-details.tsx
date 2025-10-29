@@ -275,9 +275,9 @@ function ProductDetails() {
           </div>
 
           {/* Product Tabs */}
-          <div className="flex justify-center    my-20">
+          <div className="flex justify-center my-20">
             <Tabs defaultValue="details" className="w-full bg-transparent">
-              <div className="flex flex-col lg:flex-row justify-center   overflow-scroll ">
+              <div className="flex flex-col lg:flex-row justify-center overflow-scroll">
                 <TabsList className="py-5 flex flex-row gap-5 rounded-md">
                   <TabsTrigger className="text-lg text-slate-600 rounded-md p-4" value="details">
                     Product Details
@@ -294,10 +294,7 @@ function ProductDetails() {
                 </TabsList>
               </div>
 
-              <TabsContent
-                value="details"
-                className="p-6 border rounded-xl shadow-2xl shadow-slate-100 product-description"
-              >
+              <TabsContent value="details" className="p-6 border rounded-xl   product-description">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: product.description || 'No description available'

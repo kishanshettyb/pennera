@@ -8,7 +8,6 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel'
 import Image from 'next/image'
-import Autoplay from 'embla-carousel-autoplay'
 import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
 type GalleryImageProps = {
@@ -31,11 +30,6 @@ export function ProductGallery({ images }: { images: GalleryImageProps[] }) {
         align: 'start',
         loop: true
       }}
-      plugins={[
-        Autoplay({
-          delay: 2000
-        })
-      ]}
       className="w-full  "
     >
       <CarouselContent>
