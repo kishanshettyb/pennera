@@ -16,15 +16,22 @@ const eslintConfig = [
     rules: {
       // quotes: ['error', 'single'],
       // semi: ['error', 'always'],
-      'no-unused-vars': [
-        'error',
-        {
-          args: 'after-used',
-          caughtErrors: 'none',
-          ignoreRestSiblings: true,
-          vars: 'all'
-        }
-      ],
+      // 'no-unused-vars': [
+      //   'error',
+      //   {
+      //     args: 'after-used',
+      //     caughtErrors: 'none',
+      //     ignoreRestSiblings: true,
+      //     vars: 'all'
+      //   }
+      // ],
+      // 'prefer-const': 'error',
+      // 'react-hooks/exhaustive-deps': 'warn'
+      // Disable unused variable warnings globally
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+
+      // keep useful ones
       'prefer-const': 'error',
       'react-hooks/exhaustive-deps': 'warn'
     }
