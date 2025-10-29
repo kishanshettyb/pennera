@@ -23,9 +23,7 @@ function header() {
           <div>
             <MenuItems />
           </div>
-          <div>
-            <LiveGoldPrice />
-          </div>
+          <div></div>
         </div>
       </div>
     </>
