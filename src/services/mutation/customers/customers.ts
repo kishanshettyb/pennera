@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { AxiosError } from 'axios'
-import { useCustomerContext } from '../../../../use-customer-context'
 import { useMergeCart } from '../cart/cart'
+import { useCustomerContext } from '@/use-customer-context'
 
 export function useCreateCustomer() {
   const queryClient = useQueryClient()
@@ -87,7 +87,7 @@ export function useUpdateCustomer() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ customerId, data }: { customerId: string; data }) =>
+    mutationFn: ({ customerId, data }: { customerId: string; data: unknown }) =>
       updateCustomer(customerId, data),
 
     onError: (error) => {

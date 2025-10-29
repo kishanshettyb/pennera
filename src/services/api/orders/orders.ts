@@ -18,7 +18,7 @@ export const getOrderByOrderId = async (orderId: string) => {
   return response.data
 }
 
-export const updateOrderByOrderId = async (orderId: string, data) => {
+export const updateOrderByOrderId = async (orderId: string, data: unknown) => {
   const response = await axiosInstance.put(`orders/${orderId}`, data)
   return response.data
 }

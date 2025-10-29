@@ -93,7 +93,7 @@ export const updateCartItem = async (key: string, quantity: number) => {
   return response.data
 }
 
-export const applyCouponCart = async (data) => {
+export const applyCouponCart = async (data: { code: string }) => {
   const response = await axiosInstance.post(`cart/apply-coupon`, data)
   return response.data
 }
