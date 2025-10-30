@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Counter } from '@/components/ui/shadcn-io/counter'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useGetAllProducts } from '@/services/query/products/product'
-import { Heart, MessageCircleMore, ShoppingBag, Star, Truck } from 'lucide-react'
+import { Heart, MessageCircleMore, ShoppingBag, ShoppingCart, Star, Truck } from 'lucide-react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
@@ -13,6 +13,7 @@ import FeaturesBar from '../features-bar'
 import { ProductGallery } from './product-gallery'
 import { CartSidebar } from '../cart-sidebar'
 import { Product } from '@/types/productTypes'
+import PopularProducts from '../popular-products'
 
 type SelectedVariation = {
   attribute: string
@@ -184,7 +185,7 @@ function ProductDetails() {
 
                     return (
                       <div key={attr.name}>
-                        <p className="font-semibold capitalize">{attr.name}</p>
+                        <p className="font-semibold capitalize text-sm">{attr.name}</p>
                         <div className="flex gap-2 mt-1">
                           {attr.options.map((opt) => (
                             <button
@@ -207,7 +208,7 @@ function ProductDetails() {
               <div className="flex justify-between gap-x-5 items-center">
                 {/* Quantity Selection */}
                 <div className="flex flex-col my-4 items-start">
-                  <p className="font-semibold mb-2">Quantity</p>
+                  <p className="font-semibold mb-2 text-sm">Quantity</p>
                   <Counter number={quantity} setNumber={setQuantity} />
                 </div>
                 <div className="w-full lg:w-[70%]">
@@ -218,7 +219,7 @@ function ProductDetails() {
                     onClick={handleAddToCart}
                     disabled={isAddingToCart || product.stock_status !== 'instock'}
                   >
-                    <ShoppingBag />
+                    <ShoppingCart />
                     {isAddingToCart ? 'Adding...' : 'Add to Cart'}
                   </Button>
                 </div>
@@ -364,6 +365,12 @@ function ProductDetails() {
           </div>
         </div>
       </section>
+      <section className="border pt-10 mt-10 bg-[linear-gradient(to_right,#f8fafc,#f9fafb,#fafafa,#fafaf9)]">
+        <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
+          <PopularProducts />
+        </div>
+      </section>
+
       <section className="py-5 bg-[linear-gradient(to_right,#fdf2f8,#eef2ff,#eff6ff,#ecfdf5)]">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <FeaturesBar />
