@@ -66,6 +66,7 @@ export function useLoginCustomer() {
     },
 
     onSuccess: async (data) => {
+      console.log(data)
       const customerData = {
         user_email: data.user_email,
         user_nicename: data.user_nicename,

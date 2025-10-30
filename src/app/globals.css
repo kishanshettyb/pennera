@@ -137,3 +137,47 @@
 .animate-slideDown {
   animation: slideDown 0.5s ease-out;
 }
+
+.pageContent p {
+  margin-bottom: 1rem;
+  color: #000;
+  opacity: 0.7;
+}
+
+.pageContent h2 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.pageContent h1 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+
+}
+
+.pageContent h3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.pageContent ul {
+  margin-left: 50px;
+  list-style: disc;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.pageContent ul li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.product-description p {
+  margin: 14px 0;
+}
