@@ -133,7 +133,7 @@ function ProductDetails() {
             </div>
             <div className="w-full lg:w-1/3">
               <h2 className="text-xl lg:text-2xl font-semibold mb-2">{product.name}</h2>
-              <div className="flex my-2 flex-row gap-y-2 lg:gap-y-0 justify-between items-center">
+              <div className="flex my-3 flex-row gap-y-2 lg:gap-y-0 justify-between items-center">
                 <div>
                   <div className="flex flex-row justify-center items-center gap-1">
                     <Star size="18" className="text-orange-400" />
@@ -146,12 +146,14 @@ function ProductDetails() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <div className="lg:text-md text-xs ml-2">
-                    <span className="font-semibold">SKU:</span>
-                    {product.sku}
+                {product.sku ?? (
+                  <div>
+                    <div className="lg:text-md text-xs ml-2">
+                      <span className="font-semibold">SKU:</span>
+                      {product.sku}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div>
                   {product.stock_status == 'instock' ? (
@@ -193,7 +195,7 @@ function ProductDetails() {
                               onClick={() => handleVariationSelect(attr.name, opt)}
                               className={`px-3 py-1 rounded border ${
                                 selectedValue === opt
-                                  ? 'bg-blue-500 text-white border-blue-500'
+                                  ? 'bg-slate-900 text-white border-slate-900'
                                   : 'border-gray-300 hover:bg-gray-100'
                               }`}
                             >
