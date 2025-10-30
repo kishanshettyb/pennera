@@ -1,7 +1,6 @@
 'use client'
 
 import { useGetAllProductsPagination } from '@/services/query/products/product'
-// import Sorting from './sorting'
 import { Button } from '../ui/button'
 import { Filter, Heart, ShoppingBag } from 'lucide-react'
 import clsx from 'clsx'
@@ -14,38 +13,12 @@ import { Counter } from '../ui/shadcn-io/counter'
 import { useAddToCart } from '@/services/mutation/cart/cart'
 import { useAddToWishlist, useRemoveFromWishlist } from '@/services/mutation/wishlist/wishlist'
 import { useGetAllWishlist } from '@/services/query/wishlist/wishlist'
-// import ShopFilters from './shop-filters'
 import { CartSidebar } from '../cart-sidebar'
 import { useCustomerContext } from '@/use-customer-context'
 import ShopFilters from './shop-filters'
 import Sorting from './sorting'
-// import { useCustomerContext } from '../../../use-customer-context'
-
-type ProductAttribute = {
-  id: number
-  name: string
-  slug: string
-  variation: boolean
-  visible: boolean
-  options: string[]
-}
-
-type Product = {
-  id: number
-  name: string
-  regular_price: string
-  sale_price: string
-  slug: string
-  price: string
-  price_html: string
-  images: { src: string }[]
-  attributes: ProductAttribute[]
-  variations: number[]
-  default_attributes: Array<{ id: number; name: string; option: string }>
-  stock_status: string
-  categories: Array<{ id: number; name: string; slug: string }>
-  tags: Array<{ id: number; name: string; slug: string }>
-}
+import { Product } from '@/types/productTypes'
+import { InfiniteData } from '@tanstack/react-query'
 
 type WishlistItem = {
   id: number
@@ -125,9 +98,9 @@ export default function ProductsListGridWithPagination() {
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetAllProductsPagination(buildQueryParams())
-
   // Flatten paginated data
-  const products: Product[] = data?.pages?.flat() ?? []
+  // const products: Product[] = data?.pages?.flat() ?? []
+  const products: Product[] = (data as InfiniteData<Product[]> | undefined)?.pages.flat() ?? []
 
   // Infinite scroll effect
   useEffect(() => {

@@ -10,25 +10,14 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useGetAllSearchProducts } from '@/services/query/products/product'
+import { Product } from '@/types/productTypes'
 import { Search, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useState,
-  useEffect
-} from 'react'
+import { useState, useEffect } from 'react'
 export function SearchModal() {
   const [search, setSearch] = useState('')
-  // const { data, isLoading, isError } = useGetAllProducts(search ? { search } : undefined)
-  const { data, isLoading, isError, refetch } = useGetAllSearchProducts(
-    { search },
-    false // initially disabled
-  )
+  const { data, isLoading, isError, refetch } = useGetAllSearchProducts({ search }, false)
 
   // Then call refetch() when the user types
   useEffect(() => {
@@ -75,43 +64,27 @@ export function SearchModal() {
             )}
 
             <div className="gap-5 w-full flex flex-col justify-start    rounded-2xl">
-              {data?.map(
-                (product: {
-                  id: Key | null | undefined
-                  name: string
-                  slug: string
-                  images: { src: string }[]
-                  price:
-                    | string
-                    | number
-                    | boolean
-                    | ReactElement<unknown, string | JSXElementConstructor<unknown>>
-                    | ReactNode
-                    | ReactPortal
-                    | null
-                    | undefined
-                }) => (
-                  <div key={product.id} className="group border rounded-2xl ">
-                    <DialogClose asChild>
-                      <Link href={`/product?slug=${product.slug}`}>
-                        <div className="flex items-center gap-5 border-b pb-3 last:border-b-0   w-full p-4 group-hover:shadow-2xl  group-hover:rounded-2xl group-hover:shadow-amber-100 group-hover:bg-white">
-                          <Image
-                            alt={product.name}
-                            src={product.images?.[0]?.src || '/placeholder.png'}
-                            width={100}
-                            height={100}
-                            className="w-[100px] h-[100px] object-cover border rounded-md"
-                          />
-                          <div>
-                            <h2 className="text-lg font-semibold">{product.name}</h2>
-                            <p className="text-gray-700">₹{product.price}</p>
-                          </div>
+              {data?.map((product: Product) => (
+                <div key={product.id} className="group border rounded-2xl ">
+                  <DialogClose asChild>
+                    <Link href={`/product?slug=${product.slug}`}>
+                      <div className="flex items-center gap-5 border-b pb-3 last:border-b-0   w-full p-4 group-hover:shadow-2xl  group-hover:rounded-2xl group-hover:shadow-amber-100 group-hover:bg-white">
+                        <Image
+                          alt={product.name}
+                          src={product.images?.[0]?.src || '/placeholder.png'}
+                          width={100}
+                          height={100}
+                          className="w-[100px] h-[100px] object-cover border rounded-md"
+                        />
+                        <div>
+                          <h2 className="text-lg font-semibold">{product.name}</h2>
+                          <p className="text-gray-700">₹{product.price}</p>
                         </div>
-                      </Link>
-                    </DialogClose>
-                  </div>
-                )
-              )}
+                      </div>
+                    </Link>
+                  </DialogClose>
+                </div>
+              ))}
             </div>
           </div>
         </div>
