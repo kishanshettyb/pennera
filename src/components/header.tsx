@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Sidebar, User } from 'lucide-react'
+import { Heart, User } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -11,6 +11,7 @@ import { CartSidebar } from './cart-sidebar'
 import { useGetAllWishlist } from '@/services/query/wishlist/wishlist'
 import { useCustomerContext } from '@/use-customer-context'
 import { MenuItems } from './menu/menuItems'
+import { Sidebar } from './sidebar'
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null
@@ -145,7 +146,7 @@ function Header() {
           <Sidebar />
           <Link href="/">
             <Image
-              className="w-[150px] h-auto "
+              className="w-auto h-[40px] "
               src="/logo.png"
               width="1000"
               height="1000"
