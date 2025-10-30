@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Counter } from '@/components/ui/shadcn-io/counter'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useGetAllProducts } from '@/services/query/products/product'
-import { Heart, MessageCircleMore, ShoppingBag, Star, Truck } from 'lucide-react'
+import { Heart, MessageCircleMore, ShoppingBag, ShoppingCart, Star, Truck } from 'lucide-react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
@@ -13,6 +13,7 @@ import FeaturesBar from '../features-bar'
 import { ProductGallery } from './product-gallery'
 import { CartSidebar } from '../cart-sidebar'
 import { Product } from '@/types/productTypes'
+import PopularProducts from '../popular-products'
 
 type SelectedVariation = {
   attribute: string
@@ -132,7 +133,7 @@ function ProductDetails() {
             </div>
             <div className="w-full lg:w-1/3">
               <h2 className="text-xl lg:text-2xl font-semibold mb-2">{product.name}</h2>
-              <div className="flex my-2 flex-row gap-y-2 lg:gap-y-0 justify-between items-center">
+              <div className="flex my-3 flex-row gap-y-2 lg:gap-y-0 justify-between items-center">
                 <div>
                   <div className="flex flex-row justify-center items-center gap-1">
                     <Star size="18" className="text-orange-400" />
@@ -145,12 +146,14 @@ function ProductDetails() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <div className="lg:text-md text-xs ml-2">
-                    <span className="font-semibold">SKU:</span>
-                    {product.sku}
+                {product.sku ?? (
+                  <div>
+                    <div className="lg:text-md text-xs ml-2">
+                      <span className="font-semibold">SKU:</span>
+                      {product.sku}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div>
                   {product.stock_status == 'instock' ? (
@@ -184,7 +187,7 @@ function ProductDetails() {
 
                     return (
                       <div key={attr.name}>
-                        <p className="font-semibold capitalize">{attr.name}</p>
+                        <p className="font-semibold capitalize text-sm">{attr.name}</p>
                         <div className="flex gap-2 mt-1">
                           {attr.options.map((opt) => (
                             <button
@@ -192,7 +195,7 @@ function ProductDetails() {
                               onClick={() => handleVariationSelect(attr.name, opt)}
                               className={`px-3 py-1 rounded border ${
                                 selectedValue === opt
-                                  ? 'bg-blue-500 text-white border-blue-500'
+                                  ? 'bg-slate-900 text-white border-slate-900'
                                   : 'border-gray-300 hover:bg-gray-100'
                               }`}
                             >
@@ -207,7 +210,7 @@ function ProductDetails() {
               <div className="flex justify-between gap-x-5 items-center">
                 {/* Quantity Selection */}
                 <div className="flex flex-col my-4 items-start">
-                  <p className="font-semibold mb-2">Quantity</p>
+                  <p className="font-semibold mb-2 text-sm">Quantity</p>
                   <Counter number={quantity} setNumber={setQuantity} />
                 </div>
                 <div className="w-full lg:w-[70%]">
@@ -218,7 +221,7 @@ function ProductDetails() {
                     onClick={handleAddToCart}
                     disabled={isAddingToCart || product.stock_status !== 'instock'}
                   >
-                    <ShoppingBag />
+                    <ShoppingCart />
                     {isAddingToCart ? 'Adding...' : 'Add to Cart'}
                   </Button>
                 </div>
@@ -364,6 +367,12 @@ function ProductDetails() {
           </div>
         </div>
       </section>
+      <section className="border pt-10 mt-10 bg-[linear-gradient(to_right,#f8fafc,#f9fafb,#fafafa,#fafaf9)]">
+        <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
+          <PopularProducts />
+        </div>
+      </section>
+
       <section className="py-5 bg-[linear-gradient(to_right,#fdf2f8,#eef2ff,#eff6ff,#ecfdf5)]">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <FeaturesBar />

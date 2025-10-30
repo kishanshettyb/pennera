@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 })
 
 // 🔹 Get all wishlist items
-export const getAllWishlist = async (user_id: number): Promise<WishlistItem[]> => {
+export const getAllWishlist = async (user_id: number) => {
   const response = await axiosInstance.get('list', {
     params: { user_id }
   })
