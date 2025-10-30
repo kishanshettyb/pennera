@@ -10,7 +10,7 @@ function PopularProductsGrid() {
       <div className="flex  gap-4 flex-col lg:flex-row">
         <div className="basis-1/2  overflow-hidden h-full relative">
           <Image
-            src="/popular/banner1.webp"
+            src="/popular/popular.png"
             width="2000"
             height="2000"
             className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
@@ -22,8 +22,8 @@ function PopularProductsGrid() {
                 Popular Products
               </div>
               <div>
-                <h2 className="text-4xl font-semibold mb-2">Top Fashion Deals</h2>
-                <p>Save upto 50% OFF</p>
+                <h2 className="text-4xl font-semibold mb-2"> Gold Necklace Sets</h2>
+                <p>Starts from ₹80,000</p>
               </div>
               <div>
                 <Button asChild size="lg">
@@ -40,7 +40,7 @@ function PopularProductsGrid() {
             <div className="grid gap-4	 grid-cols-2">
               <div className="overflow-hidden relative">
                 <Image
-                  src="/popular/banner2.webp"
+                  src="/popular/bangle.png"
                   width="2000"
                   height="2000"
                   className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
@@ -48,11 +48,11 @@ function PopularProductsGrid() {
                 />
                 <div className="w-full h-full">
                   <div className="flex absolute  top-2 lg:top-10   left-[50%] transform translate-x-[-50%]       ">
-                    <h2 className="text-xl font-semibold">Trendy Eyeware</h2>
+                    <h2 className="text-xl font-semibold text-white">Gold Bangles</h2>
                   </div>
-                  <div className="flex absolute  bottom-2 lg:bottom-10   left-[50%] transform translate-x-[-50%]   ">
+                  <div className="flex absolute  top-4 lg:top-18  left-[50%] transform translate-x-[-50%]   ">
                     <Button asChild variant="ghost">
-                      <Link className="cursor-pointer" href="/shop?category=37">
+                      <Link className="cursor-pointer text-white" href="/shop?category=37">
                         Shop Now <ArrowRight />
                       </Link>
                     </Button>
@@ -61,31 +61,29 @@ function PopularProductsGrid() {
               </div>
               <div className="overflow-hidden relative">
                 <Image
-                  src="/popular/banner3.webp"
+                  src="/popular/earring.png"
                   width="2000"
                   height="2000"
                   className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
                   alt=""
                 />
                 <div className="w-full h-full">
-                  <div className="flex absolute h-full top-5 lg:top-10 left-10 flex-col justify-start items-start">
-                    <div>
-                      <h2 className="text-xl font-semibold"> Footwear</h2>
-                    </div>
-                    <div className="-ml-3">
-                      <Button asChild variant="ghost">
-                        <Link className="cursor-pointer" href="/shop?category=21">
-                          Shop Now <ArrowRight />
-                        </Link>
-                      </Button>
-                    </div>
+                  <div className="flex absolute  top-2 lg:top-10   left-[50%] transform translate-x-[-50%]       ">
+                    <h2 className="text-xl font-semibold text-white">Gold EARRINGS</h2>
+                  </div>
+                  <div className="flex absolute  top-4 lg:top-18  left-[50%] transform translate-x-[-50%]   ">
+                    <Button asChild variant="ghost">
+                      <Link className="cursor-pointer text-white" href="/shop?category=37">
+                        Shop Now <ArrowRight />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
             </div>
             <div className="overflow-hidden relative">
               <Image
-                src="/popular/banner4.webp"
+                src="/popular/chain.png"
                 width="2000"
                 height="2000"
                 className="w-full h-full transform transition-transform duration-300 hover:scale-105"
@@ -94,11 +92,13 @@ function PopularProductsGrid() {
               <div className="w-full h-full">
                 <div className="flex h-[70%] lg:h-[50%]  absolute   top-[50%] transform translate-y-[-50%]  left-5 lg:left-10 flex-col justify-between items-start ">
                   <div>
-                    <h2 className="text-xl font-semibold mb-2">Fashionable bags for every day</h2>
-                    <p>Save upto 50% OFF</p>
+                    <h2 className="text-xl font-semibold text-white mb-2">
+                      Fashionable bags for every day
+                    </h2>
+                    <p className="text-white">Starting from ₹90,000 </p>
                   </div>
                   <div>
-                    <Button asChild size="lg">
+                    <Button variant="ghost" asChild size="lg" className="text-white">
                       <Link className="cursor-pointer" href="/shop?category=37">
                         Shop Now <ArrowRight />
                       </Link>
