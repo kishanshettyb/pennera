@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/components/header'
 import ReactQueryProvider from '@/lib/provider/ReactQueryProvider'
 import Footer from '@/components/footer'
+import { CustomerProvider } from '@/use-customer-context'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,8 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Penerra | Timeless Fine Jewelry for Every Occasion',
-  description:
-    'Discover Penerra’s exquisite collection of gold, diamond, and silver jewelry. Designed with elegance and craftsmanship to make every moment shine. Shop now for timeless beauty.'
+  description: `Discover Penerra's exquisite collection of gold, diamond, and silver jewelry. Designed with elegance and craftsmanship to make every moment shine. Shop now for timeless beauty.`
 }
 
 export default function RootLayout({
@@ -30,9 +30,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
-          <Header />
-          {children}
-          <Footer />
+          <CustomerProvider>
+            <Header />
+            {children}
+            <Footer />
+          </CustomerProvider>
         </ReactQueryProvider>
       </body>
     </html>
