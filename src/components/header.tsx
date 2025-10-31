@@ -101,7 +101,7 @@ function Header() {
   }
 
   return (
-    <>
+    <div className="relative">
       {/* Desktop */}
       <div
         className={`w-full z-50 hidden lg:block transition-all duration-300 ${
@@ -146,7 +146,7 @@ function Header() {
 
               <CartIcon onClick={handleCartOpen} />
               {isLoggedIn ? (
-                <div className="flex  items-center">
+                <div className="flex   items-center">
                   <LogoutButton />
                 </div>
               ) : (
@@ -176,15 +176,7 @@ function Header() {
               alt="Penerra"
             />
           </Link>
-          <div className="flex gap-4 items-center">
-            {isLoggedIn ? (
-              <LogoutButton />
-            ) : (
-              <Link href="/auth">
-                <User size={20} className={`${isFixed ? `text-white` : `text-black`}`} />
-              </Link>
-            )}
-
+          <div className="flex items-center gap-x-3">
             {/* Wishlist Icon with Dynamic Count - Mobile */}
             <Link href="/wishlist">
               <div className="relative">
@@ -202,12 +194,19 @@ function Header() {
 
             <CartIcon onClick={handleCartOpen} />
             <SearchModal />
+            {isLoggedIn ? (
+              <LogoutButton />
+            ) : (
+              <Link href="/auth">
+                <User size={20} className={`${isFixed ? `text-white` : `text-black`}`} />
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
       <CartSidebar isOpen={isCartOpen} onClose={handleCartClose} />
-    </>
+    </div>
   )
 }
 

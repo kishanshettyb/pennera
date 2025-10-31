@@ -340,7 +340,7 @@ export default function ProductsListGridWithPagination() {
           return (
             <div
               key={product.id}
-              className="bg-white cursor-pointer border overflow-hidden hover:shadow-lg rounded-md group"
+              className="bg-white relative cursor-pointer border overflow-hidden hover:shadow-lg rounded-md group"
             >
               <div className="relative overflow-hidden">
                 <Link href={`/product?slug=${product.slug}`}>
@@ -349,7 +349,7 @@ export default function ProductsListGridWithPagination() {
                     alt={product.name}
                     width={1000}
                     height={1000}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-[300px] lg:h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
                 <div className="absolute hidden group-hover:flex p-4 top-0 right-0">
@@ -396,12 +396,12 @@ export default function ProductsListGridWithPagination() {
                   </div>
                 </div>
               </Link>
-              <div className="p-4 lg:hidden flex gap-2">
+              <div className="p-4 lg:hidden  flex gap-2">
                 <Button
                   variant="outline"
                   size="lg"
                   className={clsx(
-                    'flex-1 cursor-pointer transition-colors duration-200',
+                    'flex-1 cursor-pointer absolute top-5 right-5 transition-colors duration-200',
                     isInWishlist
                       ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
                       : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
@@ -480,7 +480,7 @@ export default function ProductsListGridWithPagination() {
                               onClick={() => handleVariationSelect(attr.name, opt)}
                               className={`px-3 py-2 rounded border text-sm ${
                                 selectedValue === opt
-                                  ? 'bg-blue-500 text-white border-blue-500'
+                                  ? 'bg-slate-950 text-white border-slate-950'
                                   : 'border-gray-300 hover:bg-gray-100'
                               }`}
                             >

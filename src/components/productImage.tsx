@@ -9,8 +9,9 @@ type prodImage = {
   desc: string
   link: string
   btnTitle?: string
+  isCenter?: boolean
 }
-function ProductImage({ imageSource, title, desc, link, btnTitle }: prodImage) {
+function ProductImage({ imageSource, title, desc, link, btnTitle, isCenter }: prodImage) {
   return (
     <div className="relative">
       <Image
@@ -20,7 +21,9 @@ function ProductImage({ imageSource, title, desc, link, btnTitle }: prodImage) {
         height={1920}
         className="w-full h-full object-cover"
       />
-      <div className="absolute w-full z-50 bottom-4 lg:bottom-15 left-5 lg:left-10">
+      <div
+        className={` absolute ${isCenter ? `top-[50%] text-center left-[50%]  transform translate-x-[-50%] translate-y-[-50%]` : `bottom-4 lg:bottom-15 left-5 lg:left-10`} `}
+      >
         <h2 className="text-white text-md md:text-2xl lg:text-3xl font-semibold mb-0 lg:mb-3">
           {title}
         </h2>
