@@ -8,7 +8,13 @@ type SmallBannerProps = {
 function SmallBanner({ title, image }: SmallBannerProps) {
   return (
     <div className="relative">
-      <Image src={image} alt="" width="1920" height="500" className="w-full h-auto object-cover" />
+      <Image
+        src={image}
+        alt=""
+        width="1920"
+        height="800"
+        className="w-full h-[30vh] md:h-[35vh] lg:h-[40vh] object-cover"
+      />
       <h2 className="text-2xl lg:text-4xl font-bold absolute top-[50%] left-[50%]  transform translate-[-50%]  text-white">
         {title}
       </h2>

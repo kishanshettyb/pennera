@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
 import { useCustomerContext } from '@/use-customer-context'
-import {} from '@/store/useHeaderStore'
+import { useHeaderStore } from '@/store/useHeaderStore'
 
 export function LogoutButton() {
   // const router = useRouter()
@@ -22,15 +22,16 @@ export function LogoutButton() {
     logout()
     window.location.replace('/')
   }
+  const { isFixed } = useHeaderStore()
 
   return (
     <>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-transparent group">
               <div className="flex  items-center flex-row">
-                <User size={20} />
+                <User size={20} className={`${isFixed ? `text-white ` : `text-black`}`} />
               </div>
             </NavigationMenuTrigger>
             <NavigationMenuContent>

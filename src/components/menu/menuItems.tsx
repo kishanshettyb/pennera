@@ -15,7 +15,7 @@ import { useHeaderStore } from '@/store/useHeaderStore'
 export function MenuItems() {
   const isFixed = useHeaderStore((state) => state.isFixed)
   return (
-    <NavigationMenu viewport={false}>
+    <NavigationMenu viewport={false} className="gap-x-10">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
