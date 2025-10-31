@@ -61,7 +61,7 @@ function CategorySliderNew({ items }: CategorySliderProps) {
           {items.map((item) => (
             <CarouselItem
               key={item.id}
-              className="pl-1 cursor-pointer sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+              className="pl-1 cursor-pointer sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/4"
             >
               <Link href={`/shop?category=${item.id}`}>
                 <div className="p-4">
