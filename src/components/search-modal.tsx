@@ -10,12 +10,14 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useGetAllSearchProducts } from '@/services/query/products/product'
+import { useHeaderStore } from '@/store/useHeaderStore'
 import { Product } from '@/types/productTypes'
 import { Search, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 export function SearchModal() {
+  const isFixed = useHeaderStore((state) => state.isFixed)
   const [search, setSearch] = useState('')
   const { data, isLoading, isError, refetch } = useGetAllSearchProducts({ search }, false)
 
@@ -29,7 +31,10 @@ export function SearchModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Search className="hover:animate-pulse cursor-pointer" size="20" />
+        <Search
+          className={`hover:animate-pulse cursor-pointer  ${isFixed ? `text-white` : `text-black`}`}
+          size="20"
+        />
       </DialogTrigger>
 
       <DialogContent className="min-w-[60%] max-w-none">

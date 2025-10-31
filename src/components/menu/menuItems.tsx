@@ -7,44 +7,57 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  NavigationMenuTrigger
 } from '@/components/ui/navigation-menu'
 import { MenuCategoryList } from './menuCategoryList'
+import { useHeaderStore } from '@/store/useHeaderStore'
 
 export function MenuItems() {
+  const isFixed = useHeaderStore((state) => state.isFixed)
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/">Home</Link>
+          <NavigationMenuLink asChild>
+            <Link href="/" className={`${isFixed ? `text-white` : `text-black`}`}>
+              Home
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
         {/* Shop dropdown categories */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
+          <NavigationMenuTrigger
+            className={`${isFixed ? `text-white bg-transparent` : `text-black bg-transparent`}`}
+          >
+            Shop
+          </NavigationMenuTrigger>
           <NavigationMenuContent className="z-50 p-5">
             <MenuCategoryList />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/categories">Categories</Link>
+          <NavigationMenuLink asChild>
+            <Link href="/categories" className={`${isFixed ? `text-white` : `text-black`}`}>
+              Categories
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/about">About Us</Link>
+          <NavigationMenuLink asChild>
+            <Link href="/about" className={`${isFixed ? `text-white` : `text-black`}`}>
+              About Us
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/contact">Contact Us</Link>
+          <NavigationMenuLink asChild>
+            <Link href="/contact" className={`${isFixed ? `text-white` : `text-black`}`}>
+              Contact Us
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>

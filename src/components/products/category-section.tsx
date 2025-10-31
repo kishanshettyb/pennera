@@ -1,8 +1,8 @@
 'use client'
 
 import { useGetAllCategory } from '@/services/query/category/category'
-import CategorySlider from '@/components/category-slider'
 import { Loader2 } from 'lucide-react'
+import CategorySliderNew from '../category-slider-new'
 
 interface CategorySectionProps {
   showLoadingState?: boolean
@@ -59,8 +59,10 @@ export default function CategorySection({
   }
 
   return (
-    <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
-      <CategorySlider items={transformedCategories} />
-    </div>
+    <section className="  py-[100px] bg-[url('/banner/background.png')] bg-cover bg-center bg-no-repeat    flex items-center justify-center">
+      <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
+        <CategorySliderNew items={transformedCategories} />
+      </div>
+    </section>
   )
 }
