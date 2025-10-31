@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/drawer'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useHeaderStore } from '@/store/useHeaderStore'
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null
@@ -26,6 +27,7 @@ function getCookie(name: string): string | null {
 export function Sidebar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
+  const { isFixed } = useHeaderStore()
 
   React.useEffect(() => {
     setMounted(true)
@@ -54,7 +56,7 @@ export function Sidebar() {
   return (
     <Drawer direction="left">
       <DrawerTrigger asChild>
-        <Menu />
+        <Menu size={20} className={`${isFixed ? `text-white` : `text-black`}`} />
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">

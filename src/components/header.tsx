@@ -12,6 +12,7 @@ import { useGetAllWishlist } from '@/services/query/wishlist/wishlist'
 import { useCustomerContext } from '@/use-customer-context'
 import { MenuItems } from './menu/menuItems'
 import { Sidebar } from './sidebar'
+import { useHeaderStore } from '@/store/useHeaderStore'
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null
@@ -23,6 +24,7 @@ function getCookie(name: string): string | null {
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { isFixed, setIsFixed } = useHeaderStore()
   const [mounted, setMounted] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
   const { customerId } = useCustomerContext()
@@ -62,6 +64,20 @@ function Header() {
     }
   }, [isLoggedIn])
 
+  // 👇 Scroll listener to update Zustand state
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsFixed(false)
+      } else {
+        setIsFixed(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [setIsFixed])
+
   const handleCartOpen = () => {
     setIsCartOpen(true)
   }
@@ -87,7 +103,11 @@ function Header() {
   return (
     <>
       {/* Desktop */}
-      <div className="w-full hidden lg:block">
+      <div
+        className={`w-full z-50 hidden lg:block transition-all duration-300 ${
+          isFixed ? 'fixed bg-transparent' : 'fixed bg-white shadow-sm z-50'
+        }`}
+      >
         <div className="w-full py-4 mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px] flex items-center justify-between">
           <div>
             <Link href="/">
@@ -106,18 +126,8 @@ function Header() {
           </div>
 
           <div>
-            <div className="flex justify-between gap-4 items-center">
+            <div className="flex justify-between gap-x-6 items-center">
               <SearchModal />
-
-              {isLoggedIn ? (
-                <div className="flex items-center">
-                  <LogoutButton />
-                </div>
-              ) : (
-                <Link href="/auth">
-                  <User />
-                </Link>
-              )}
 
               {/* Wishlist Icon with Dynamic Count */}
               <Link href="/wishlist">
@@ -128,21 +138,34 @@ function Header() {
                     </span>
                   )}
                   <Heart
-                    className={`hover:animate-pulse ${wishlistCount > 0 ? 'text-red-500' : ''}`}
-                    size="22"
+                    className={`hover:animate-pulse ${wishlistCount > 0 ? 'text-red-500' : ''} ${isFixed ? `text-white` : `text-black`}`}
+                    size="20"
                   />
                 </div>
               </Link>
 
               <CartIcon onClick={handleCartOpen} />
+              {isLoggedIn ? (
+                <div className="flex  items-center">
+                  <LogoutButton />
+                </div>
+              ) : (
+                <Link href="/auth">
+                  <User size={20} className={`${isFixed ? `text-white` : `text-black`}`} />
+                </Link>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Mobile */}
-      <div className="w-full block lg:hidden">
-        <div className="flex px-4 border border-x-0 border-t-0 py-4 justify-between gap-0 items-center">
+      <div
+        className={`w-full fixed  z-50 block lg:hidden ${isFixed ? `bg-transparent` : `bg-white`}`}
+      >
+        <div
+          className={`flex px-4 border ${isFixed ? `border-slate-800 ` : `border-slate-50`} border-x-0 border-t-0 py-4 justify-between gap-0 items-center`}
+        >
           <Sidebar />
           <Link href="/">
             <Image
@@ -158,7 +181,7 @@ function Header() {
               <LogoutButton />
             ) : (
               <Link href="/auth">
-                <User />
+                <User size={20} className={`${isFixed ? `text-white` : `text-black`}`} />
               </Link>
             )}
 
@@ -171,8 +194,8 @@ function Header() {
                   </span>
                 )}
                 <Heart
-                  className={`hover:animate-pulse ${wishlistCount > 0 ? 'text-red-500' : ''}`}
-                  size="22"
+                  className={`hover:animate-pulse ${wishlistCount > 0 ? 'text-red-500' : ''} ${isFixed ? `text-white` : `text-black`}`}
+                  size="20"
                 />
               </div>
             </Link>

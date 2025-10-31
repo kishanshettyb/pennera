@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
 import { useCustomerContext } from '@/use-customer-context'
+import {} from '@/store/useHeaderStore'
 
 export function LogoutButton() {
   // const router = useRouter()
@@ -27,9 +28,9 @@ export function LogoutButton() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="border">
+            <NavigationMenuTrigger>
               <div className="flex  items-center flex-row">
-                <User />
+                <User size={20} />
               </div>
             </NavigationMenuTrigger>
             <NavigationMenuContent>

@@ -58,7 +58,7 @@ export function MenuCategoryList() {
           <Loader2 className="animate-spin" />
         </div>
       ) : (
-        <ul className="grid w-[400px] gap-4 md:w-[500px] md:grid-cols-3 lg:grid-cols-6 lg:w-[700px]">
+        <ul className="grid w-[400px] gap-4 md:w-[500px] md:grid-cols-3 lg:grid-cols-4 lg:w-[700px]">
           {parentCategories.map((category) => (
             <MenuListItems
               key={category.id}
