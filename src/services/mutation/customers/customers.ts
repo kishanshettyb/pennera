@@ -88,7 +88,7 @@ export function useUpdateCustomer() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ customerId, data }: { customerId: string; data: unknown }) =>
+    mutationFn: ({ customerId, data }: { customerId: number; data: unknown }) =>
       updateCustomer(customerId, data),
 
     onError: (error) => {

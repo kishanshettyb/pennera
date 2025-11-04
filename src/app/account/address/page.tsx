@@ -43,10 +43,24 @@ const addressSchema = z.object({
   })
 })
 
+type Address = {
+  first_name?: string
+  last_name?: string
+  company?: string
+  address_1?: string
+  address_2?: string
+  city?: string
+  state?: string
+  postcode?: string
+  country?: string
+  email?: string
+  phone?: string
+}
+
 type AddressFormData = z.infer<typeof addressSchema>
 
 // Helper function to check if address fields are empty
-const isAddressEmpty = (address) => {
+const isAddressEmpty = (address?: Address) => {
   if (!address) return true
   return (
     !address.first_name &&

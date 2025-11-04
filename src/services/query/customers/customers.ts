@@ -1,7 +1,7 @@
 import { getCustomerByEmail, getCustomerById } from '@/services/api/customers/customers'
 import { useQuery } from '@tanstack/react-query'
 
-export function useGetCustomerById(customerId: string) {
+export function useGetCustomerById(customerId: number) {
   return useQuery({
     queryKey: ['customers', customerId],
     queryFn: () => getCustomerById(customerId),
