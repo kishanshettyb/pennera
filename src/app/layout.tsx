@@ -5,6 +5,7 @@ import Header from '@/components/header'
 import ReactQueryProvider from '@/lib/provider/ReactQueryProvider'
 import Footer from '@/components/footer'
 import { CustomerProvider } from '@/use-customer-context'
+import NonceProvider from '@/services/nonce-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
           <CustomerProvider>
+            <NonceProvider />
             <Header />
             {children}
             <Footer />
