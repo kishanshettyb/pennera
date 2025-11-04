@@ -352,7 +352,7 @@ export default function ProductsListGridWithPagination() {
                     className="w-full h-[300px] lg:h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
-                <div className="absolute hidden group-hover:flex p-4 top-0 right-0">
+                <div className="absolute z-50 hidden group-hover:flex p-4 top-0 right-0">
                   <Button
                     variant="outline"
                     size="lg"

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import Cookies from 'js-cookie'
-/* eslint-disable */
+
 interface Customer {
   id?: number
   user_email: string
@@ -23,11 +23,11 @@ interface Customer {
 
 interface CustomerContextType {
   customer: Customer | null
-
+  //eslint-disable-next-line no-unused-vars
   login: (customerData: Customer) => void
   logout: () => void
   isAuthenticated: boolean
-
+  //eslint-disable-next-line no-unused-vars
   updateCustomer: (customerData: Partial<Customer>) => void
   customerId?: number
 }
@@ -147,4 +147,3 @@ export function useCustomerContext() {
   if (!context) throw new Error('useCustomerContext must be used within a CustomerProvider')
   return context
 }
-/* eslint-enable */
