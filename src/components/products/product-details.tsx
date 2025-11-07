@@ -122,7 +122,7 @@ function ProductDetails() {
 
   return (
     <>
-      <section className="py-10 lg:py-20 border border-x-0 border-slate-100 border-b-0">
+      <section className="py-30 lg:pt-40 border border-x-0 border-slate-100 border-b-0">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
           <div
             key={product.id}

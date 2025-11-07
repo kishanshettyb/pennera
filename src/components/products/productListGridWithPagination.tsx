@@ -311,7 +311,7 @@ export default function ProductsListGridWithPagination() {
 
       {/* Mobile Filters Overlay */}
       {showFilters && (
-        <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex">
+        <div className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50   flex">
           <div className="bg-white w-80 h-full overflow-y-auto">
             <div className="p-4 border-b">
               <div className="flex justify-between items-center">
@@ -349,7 +349,7 @@ export default function ProductsListGridWithPagination() {
                     alt={product.name}
                     width={1000}
                     height={1000}
-                    className="w-full h-[300px] lg:h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-[150px] lg:h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
                 <div className="absolute z-50 hidden group-hover:flex p-4 top-0 right-0">
@@ -384,19 +384,21 @@ export default function ProductsListGridWithPagination() {
                 </div>
               </div>
               <Link href={`/product?slug=${product.slug}`}>
-                <div className="flex flex-col items-center my-5 px-2 lg:px-4 text-center">
-                  <h2 className="text-lg line-clamp-2 font-semibold mb-2">{product.name}</h2>
+                <div className="flex flex-col items-center my-1 lg:my-5 px-2 lg:px-4 text-center">
+                  <h2 className="text-sm lg:text-lg line-clamp-2 font-semibold mb-2">
+                    {product.name}
+                  </h2>
                   <div className="flex gap-x-2">
                     {product.regular_price && (
                       <h2 className="text-gray-600 line-through opacity-60 text-lg font-light">
                         ₹{product.regular_price}
                       </h2>
                     )}
-                    <h2 className="text-gray-600 text-lg font-semibold">₹{product.price}</h2>
+                    <h2 className="text-sm lg:text-gray-600   font-semibold">₹{product.price}</h2>
                   </div>
                 </div>
               </Link>
-              <div className="p-4 lg:hidden  flex gap-2">
+              <div className="p-2 lg:p-4 lg:hidden  flex gap-2">
                 <Button
                   variant="outline"
                   size="lg"

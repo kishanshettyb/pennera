@@ -25,7 +25,7 @@ function getCookie(name: string): string | null {
 
 function Header() {
   const pathname = usePathname()
-  const darkPages = ['/cart', '/checkout', '/auth', '/account']
+  const darkPages = ['/cart', '/checkout', '/auth', '/account', '/product']
   const isDarkPage = darkPages.some((route) => pathname?.includes(route))
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const { isFixed, setIsFixed } = useHeaderStore()
@@ -110,8 +110,8 @@ function Header() {
       <div
         className={`w-full z-50 hidden lg:block transition-all duration-300 ${
           isFixed
-            ? `fixed ${isDarkPage ? 'bg-black' : 'bg-transparent'}`
-            : `fixed ${isDarkPage ? 'bg-black' : 'bg-white'} shadow-sm z-50`
+            ? `fixed ${isDarkPage ? `bg-black` : `bg-transparent`}`
+            : `fixed bg-white  shadow-sm z-50`
         }`}
       >
         <div className="w-full py-4 mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px] flex items-center justify-between">
@@ -167,7 +167,7 @@ function Header() {
 
       {/* Mobile */}
       <div
-        className={`w-full fixed  z-50 block lg:hidden ${isFixed ? `bg-transparent` : `bg-white`}`}
+        className={`w-full fixed  z-50 block lg:hidden ${isFixed ? `fixed ${isDarkPage ? `bg-black` : `bg-transparent`}` : `bg-white`}`}
       >
         <div
           className={`flex px-4 border ${isFixed ? `border-slate-800 ` : `border-slate-50`} border-x-0 border-t-0 py-4 justify-between gap-0 items-center`}
