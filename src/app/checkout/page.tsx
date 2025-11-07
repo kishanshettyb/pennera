@@ -1087,10 +1087,10 @@ function CheckoutPage() {
                             >
                               {item.name}
                             </Link>
-                            <p className="text-sm text-gray-500 mt-1">
+                            {/* <p className="text-sm text-gray-500 mt-1">
                               {currencySymbol}
                               {(parseInt(item.prices?.price || '0') / 100).toLocaleString()}
-                            </p>
+                            </p> */}
                           </div>
                           <div className="flex items-center gap-2 mt-2">
                             <Counter
@@ -1304,7 +1304,7 @@ function CheckoutPage() {
               <div className="px-0 py-2">
                 <Button
                   type="submit"
-                  className="w-full text-lg lg:py-6 cursor-pointer"
+                  className="w-full text-lg py-6 lg:py-6 cursor-pointer"
                   size="lg"
                   disabled={
                     isProcessingPayment ||

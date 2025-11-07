@@ -52,9 +52,9 @@ function CategoryPage() {
         <SmallBanner title="Categories" image="/banner/banner-categories.png" />
       </div>
 
-      <section className="py-40 bg-slate-50">
+      <section className="py-20 lg:py-40 bg-slate-50">
         <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {mainCategories.map((category: Category) => {
               const totalCount = category.count + getTotalCount(category.id)
 
@@ -69,13 +69,15 @@ function CategoryPage() {
                       alt={category.image?.alt || category.name}
                       width={1000}
                       height={1000}
-                      className="rounded-md object-cover h-[550px] w-full"
+                      className="rounded-md object-cover h-[250px] lg:h-[350px] xl:h-[450px] w-full"
                     />
                     <div className="absolute inset-0 rounded-md bg-gradient-to-t from-black/90 to-transparent"></div>
 
-                    <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center">
-                      <h2 className="text-3xl font-bold text-white mb-2">{category.name}</h2>
-                      <div className="bg-white text-slate-900 font-semibold inline-block text-sm p-1 px-3 rounded-sm">
+                    <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-full text-center">
+                      <h2 className="text-xl lg:text-3xl capitalize font-bold text-white mb-2">
+                        {category.name}
+                      </h2>
+                      <div className="text-xs bg-white text-slate-900 font-semibold inline-block lg:text-sm p-1 px-3 rounded-sm">
                         {totalCount} Products
                       </div>
                     </div>
