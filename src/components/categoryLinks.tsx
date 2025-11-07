@@ -19,7 +19,7 @@ function CategoryLinks() {
 
   if (isLoading) {
     return (
-      <div className="w-full flex justify-center items-center py-5 text-white bg-[#c19144]">
+      <div className="w-full flex justify-center items-center py-5 text-white bg-slate-950">
         Loading categories...
       </div>
     )
@@ -41,18 +41,18 @@ function CategoryLinks() {
   /* eslint-enable */
 
   return (
-    <section className="w-full py-10 bg-[#c19144]">
+    <section className="w-full py-10 bg-slate-950">
       <h2 className="text-4xl md:text-6xl lg:text-8xl uppercase font-semibold text-center my-10 text-white">
         PENERRA - Redefining Royalty in Gold.
       </h2>
       {parentCategories.map((category) => (
         <Link href={category.link} key={category.id}>
-          <div className="flex flex-row justify-between items-center px-12 border-2 border-b-0 border-x-0 border-t-white/40 py-5 bg-[#c19144] hover:bg-black transition-colors">
+          <div className="flex flex-row justify-between items-center px-12 border-2 border-b-0 border-x-0 border-t-slate-800 p-3 lg:py-5 bg-slate-950 hover:bg-black transition-colors">
             <div>
-              <h2 className="text-3xl md:text-4xl uppercase text-white">{category.name}</h2>
+              <h2 className="text-lg md:text-2xl uppercase text-white">{category.name}</h2>
             </div>
             <div>
-              <ArrowRight size={40} className="text-white" />
+              <ArrowRight className="text-white" />
             </div>
           </div>
         </Link>

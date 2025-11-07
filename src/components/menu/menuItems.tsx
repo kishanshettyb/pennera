@@ -28,7 +28,7 @@ export function MenuItems() {
         {/* Shop dropdown categories */}
         <NavigationMenuItem>
           <NavigationMenuTrigger
-            className={`${isFixed ? `text-white bg-transparent` : `text-black bg-transparent`}`}
+            className={`text-sm ${isFixed ? `text-white bg-transparent` : `text-black bg-transparent`}`}
           >
             Shop
           </NavigationMenuTrigger>

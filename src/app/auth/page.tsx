@@ -2,7 +2,6 @@
 
 import { LoginForm } from '@/components/login-form'
 import { SignupForm } from '@/components/signup-form'
-import SmallBanner from '@/components/small-banner'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -14,9 +13,7 @@ export default function AccountPage() {
 
   return (
     <>
-      <SmallBanner title="Account" image="/banner/banner-categories.png" />
-
-      <div className=" flex flex-col items-center justify-start bg-gray-50 p-6">
+      <div className="py-40 flex flex-col items-center justify-start bg-gray-50 p-6">
         <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-4 lg:p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">

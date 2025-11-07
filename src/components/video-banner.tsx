@@ -13,7 +13,21 @@ function VideoBanner() {
         autoPlay
         muted
         loop
-        className="w-full h-[50vh] lg:h-full"
+        className="w-full hidden lg:block h-[100vh] object-cover"
+        playsInline
+      >
+        <source src="/banner/banner.mp4" type="video/mp4" />
+        <track src="/path/to/captions.vtt" kind="subtitles" srcLang="en" label="English" />
+        Your browser does not support the video tag.
+      </video>
+      <video
+        width="1080"
+        height="1920"
+        preload="none"
+        autoPlay
+        muted
+        loop
+        className="w-full block lg:hidden h-[60vh] object-cover"
         playsInline
       >
         <source src="/banner/banner.mp4" type="video/mp4" />

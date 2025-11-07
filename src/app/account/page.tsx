@@ -135,7 +135,7 @@ function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 py-8">
+    <div className=" bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 py-60">
       <div className="w-full mx-auto px-4 sm:px-6 max-w-7xl">
         {/* Header Section */}
         <div className="mb-8">

@@ -13,6 +13,7 @@ import { useCustomerContext } from '@/use-customer-context'
 import { MenuItems } from './menu/menuItems'
 import { Sidebar } from './sidebar'
 import { useHeaderStore } from '@/store/useHeaderStore'
+import { usePathname } from 'next/navigation'
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null
@@ -23,6 +24,9 @@ function getCookie(name: string): string | null {
 }
 
 function Header() {
+  const pathname = usePathname()
+  const darkPages = ['/cart', '/checkout', '/auth', '/account']
+  const isDarkPage = darkPages.some((route) => pathname?.includes(route))
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const { isFixed, setIsFixed } = useHeaderStore()
   const [mounted, setMounted] = useState(false)
@@ -105,7 +109,9 @@ function Header() {
       {/* Desktop */}
       <div
         className={`w-full z-50 hidden lg:block transition-all duration-300 ${
-          isFixed ? 'fixed bg-transparent' : 'fixed bg-white shadow-sm z-50'
+          isFixed
+            ? `fixed ${isDarkPage ? 'bg-black' : 'bg-transparent'}`
+            : `fixed ${isDarkPage ? 'bg-black' : 'bg-white'} shadow-sm z-50`
         }`}
       >
         <div className="w-full py-4 mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px] flex items-center justify-between">
