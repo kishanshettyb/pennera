@@ -5,7 +5,7 @@ import { useGetAllCart } from '@/services/query/cart/cart'
 import { ArrowRight, Loader2, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUpdateCartItem, useRemoveFromCart } from '@/services/mutation/cart/cart'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -474,6 +474,7 @@ const AddressForm = React.memo(
 AddressForm.displayName = 'AddressForm'
 
 function CheckoutPage() {
+  const [isFixed, setIsFixed] = useState(true)
   const { data: cart, isLoading: cartLoading, refetch: refetchCart } = useGetAllCart()
   const { data: checkoutData, isLoading: checkoutLoading } = useGetCheckoutData()
   const { data: paymentGateways, isLoading: paymentGatewaysLoading } = useGetAllPaymentGateways()
@@ -978,6 +979,27 @@ function CheckoutPage() {
   const isProcessingPayment =
     createCheckoutMutation.isPending || isRazorpayLoading || checkoutOrderMutation.isPending
 
+  useEffect(() => {
+    const target = document.getElementById('place-order')
+
+    const handleScroll = () => {
+      if (!target) return
+
+      const targetTop = target.getBoundingClientRect().top
+
+      // If the element is visible / reached, remove fixed
+      // if (targetTop <= window.innerHeight) {
+      if (targetTop <= 200) {
+        setIsFixed(false)
+      } else {
+        setIsFixed(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] py-20 md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
       <Form {...form}>
@@ -1043,7 +1065,10 @@ function CheckoutPage() {
           </div>
 
           <div className="w-full lg:w-1/4">
-            <div className="bg-slate-50 w-full p-6 text-slate-800 rounded-lg border border-slate-50 sticky top-6">
+            <div
+              id="place-order"
+              className="bg-slate-50   w-full p-6 text-slate-800 rounded-lg border border-slate-50 sticky top-6"
+            >
               <h2 className="text-xl font-semibold mb-4">Your Order</h2>
               <div className="p-4 bg-white rounded-2xl pb-0 space-y-4 max-h-[40vh] overflow-y-auto">
                 {isLoading ? (
@@ -1301,7 +1326,9 @@ function CheckoutPage() {
               </div>
 
               {/* Place Order Button */}
-              <div className="px-0 py-2">
+              <div
+                className={`px-0 py-2 ${isFixed ? `fixed w-[80%] bottom-0` : `px-0 py-2 relative`}`}
+              >
                 <Button
                   type="submit"
                   className="w-full text-lg py-6 lg:py-6 cursor-pointer"
