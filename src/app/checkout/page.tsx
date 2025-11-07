@@ -1327,7 +1327,7 @@ function CheckoutPage() {
 
               {/* Place Order Button */}
               <div
-                className={`px-0 py-2 ${isFixed ? `fixed w-[80%] bottom-0` : `px-0 py-2 relative`}`}
+                className={`px-0 py-2 ${isFixed ? `fixed lg:relative w-[80%] lg:w-auto bottom-0` : `px-0 py-2 relative`}`}
               >
                 <Button
                   type="submit"
