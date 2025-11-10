@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useCheckoutOrder } from '@/services/mutation/checkout/checkout'
 import { ColumnDef } from '@tanstack/react-table'
 import { DataTable } from '@/components/data-table'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../../../use-customer-context'
 
 // Types based on the API response
 type OrderItem = {

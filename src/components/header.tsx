@@ -9,11 +9,11 @@ import { LogoutButton } from './logout-button'
 import { CartIcon } from './cart-icon'
 import { CartSidebar } from './cart-sidebar'
 import { useGetAllWishlist } from '@/services/query/wishlist/wishlist'
-import { useCustomerContext } from '@/use-customer-context'
 import { MenuItems } from './menu/menuItems'
 import { Sidebar } from './sidebar'
 import { useHeaderStore } from '@/store/useHeaderStore'
 import { usePathname } from 'next/navigation'
+import { useCustomerContext } from '../../use-customer-context'
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null

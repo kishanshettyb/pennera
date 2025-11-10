@@ -4,7 +4,7 @@ import React from 'react'
 import { ShoppingCart, User, MapPin, KeyRound, LogOut, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCustomerContext } from '../../use-customer-context'
+import { useCustomerContext } from '../../../use-customer-context'
 
 type MenuItem = {
   id: number

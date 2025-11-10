@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../../use-customer-context'
 
 // Validation schema for basic customer profile
 const customerProfileSchema = z.object({

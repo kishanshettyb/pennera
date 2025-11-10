@@ -13,7 +13,7 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../../../use-customer-context'
 
 const addressSchema = z.object({
   billing: z.object({

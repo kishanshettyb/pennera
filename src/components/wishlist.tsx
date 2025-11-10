@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/table'
 import { useAddToCart } from '@/services/mutation/cart/cart'
 import { CartSidebar } from '@/components/cart-sidebar'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../use-customer-context'
 
 // Wishlist item type based on your API response
 type WishlistItem = {

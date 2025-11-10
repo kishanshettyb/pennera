@@ -4,8 +4,8 @@ import './globals.css'
 import Header from '@/components/header'
 import ReactQueryProvider from '@/lib/provider/ReactQueryProvider'
 import Footer from '@/components/footer'
-import { CustomerProvider } from '@/use-customer-context'
 import NonceProvider from '@/services/nonce-provider'
+import { CustomerProvider } from '../../use-customer-context'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger
 } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../use-customer-context'
 import { useHeaderStore } from '@/store/useHeaderStore'
 
 export function LogoutButton() {

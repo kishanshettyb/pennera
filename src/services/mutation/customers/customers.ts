@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { AxiosError } from 'axios'
 import { useMergeCart } from '../cart/cart'
-import { useCustomerContext } from '@/use-customer-context'
+import { useCustomerContext } from '../../../../use-customer-context'
 
 export function useCreateCustomer() {
   const queryClient = useQueryClient()
