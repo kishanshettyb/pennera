@@ -26,7 +26,7 @@ export const loginCustomer = async (data: { username: string; password: string }
   return response.data
 }
 
-export const getCustomerById = async (customerId: number) => {
+export const getCustomerById = async (customerId: string) => {
   const response = await axiosInstance.get(`customers/${customerId}`)
   return response.data
 }
