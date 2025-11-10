@@ -93,17 +93,16 @@ export const updateCartItem = async (key: string, quantity: number) => {
   return response.data
 }
 
-export const applyCouponCart = async (data: { code: string }) => {
+export const applyCouponCart = async (data) => {
   const response = await axiosInstance.post(`cart/apply-coupon`, data)
   return response.data
 }
 
 export const removeCouponCart = async (payload: { code: string }) => {
-  const response = await axiosInstance.delete(`cart/coupons`, {
+  const response = await axiosInstance.post(`cart/remove-coupon`, payload, {
     headers: {
       'Content-Type': 'application/json'
-    },
-    data: payload
+    }
   })
   return response.data
 }
