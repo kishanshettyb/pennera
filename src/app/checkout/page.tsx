@@ -898,13 +898,11 @@ function CheckoutPage() {
         discount_total: (totalDiscount / 100).toString(),
         total: (totalPrice / 100).toString()
       }
-
       console.log('Sending checkout payload without coupons:', payload)
       console.log('Total items:', totalItems)
       console.log('Total discount:', totalDiscount)
       console.log('Total shipping:', totalShipping)
       console.log('Total price:', totalPrice)
-
       createCheckoutMutation.mutate(payload, {
         onSuccess: (data: CheckoutResponse) => {
           console.log('Checkout successful:', data)
@@ -976,6 +974,16 @@ function CheckoutPage() {
   )
 
   const isLoading = cartLoading || checkoutLoading || paymentGatewaysLoading
+  useEffect(() => {
+    if (totalDiscount > 0 && cart?.coupons?.length) {
+      const existing = cart.coupons[0]?.code
+      if (existing && appliedCoupon !== existing) {
+        setAppliedCoupon(existing)
+        form.setValue('selected_coupon', existing)
+      }
+    }
+  }, [cart, totalDiscount, appliedCoupon, form])
+
   const isProcessingPayment =
     createCheckoutMutation.isPending || isRazorpayLoading || checkoutOrderMutation.isPending
 

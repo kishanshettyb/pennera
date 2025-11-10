@@ -25,7 +25,15 @@ function getCookie(name: string): string | null {
 
 function Header() {
   const pathname = usePathname()
-  const darkPages = ['/cart', '/checkout', '/auth', '/account', '/product']
+  const darkPages = [
+    '/cart',
+    '/checkout',
+    '/auth',
+    '/account',
+    '/product',
+    '/register',
+    '/forgot-password'
+  ]
   const isDarkPage = darkPages.some((route) => pathname?.includes(route))
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const { isFixed, setIsFixed } = useHeaderStore()
