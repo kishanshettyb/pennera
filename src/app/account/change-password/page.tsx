@@ -18,7 +18,7 @@ export default function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const change_password_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_CHANGE_PASSWORD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -46,7 +46,7 @@ export default function ChangePassword() {
       }
 
       // Step 2: Send password change request
-      const res = await fetch('https://app.disanmart.com/wp-json/custom/v1/change-password', {
+      const res = await fetch(`${change_password_url}/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
