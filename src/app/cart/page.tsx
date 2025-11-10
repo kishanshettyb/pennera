@@ -113,11 +113,11 @@ function CartPage() {
         ) : (
           <>
             {/* Cart Items Section */}
-            <div className="flex-1">
+            <div className="w-full pt-10">
               <Table>
                 <TableHeader className="bg-slate-50">
                   <TableRow>
-                    <TableHead className="font-semibold">Item</TableHead>
+                    <TableHead className="font-semibold w-[10%]">Item</TableHead>
                     <TableHead className="font-semibold text-center">Quantity</TableHead>
                     <TableHead className="font-semibold text-center">Subtotal</TableHead>
                     <TableHead className="font-semibold text-center">Action</TableHead>
@@ -136,8 +136,8 @@ function CartPage() {
                       >
                         {/* Item */}
                         <TableCell>
-                          <div className="flex items-center gap-3">
-                            <div className="relative">
+                          <div className="flex items-center  gap-3">
+                            <div className="relative w-[60px]">
                               {(isUpdating || isRemoving) && (
                                 <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded z-10">
                                   <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
@@ -148,17 +148,17 @@ function CartPage() {
                                 alt={item.images?.[0]?.alt || item.name}
                                 width={64}
                                 height={64}
-                                className="w-16 h-16 object-cover rounded-md"
+                                className="w-[60px] h-[60px] object-cover rounded-md"
                               />
                             </div>
-                            <div>
+                            <div className="w-[100px] md:w-auto lg:w-auto">
                               <Link
                                 href={item.permalink}
                                 className={`font-medium hover:underline ${
                                   isUpdating || isRemoving ? 'pointer-events-none' : ''
                                 }`}
                               >
-                                <p className="line-clamp-2 text-sm lg:text-base">{item.name}</p>
+                                <p className="line-clamp-1 text-xs   lg:text-base">{item.name}</p>
                               </Link>
                               <p className="text-xs text-gray-600 mt-1">
                                 {currencySymbol}

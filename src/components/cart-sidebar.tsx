@@ -123,11 +123,11 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                 return (
                   <div
                     key={item.key}
-                    className={`flex gap-3 items-center border-b border-gray-200 pb-3 ${
+                    className={`flex gap-3 items-center justify-between border-b border-gray-200 pb-3 ${
                       isItemDisabled ? 'opacity-50' : ''
                     }`}
                   >
-                    <div className="w-16 h-16 relative">
+                    <div className="w-[70px] h-[80px] relative">
                       {isItemDisabled && (
                         <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded z-10">
                           <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
@@ -137,7 +137,7 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                         src={item.images?.[0]?.thumbnail || '/placeholder.png'}
                         alt={item.images?.[0]?.alt || item.name}
                         fill
-                        className="object-cover rounded"
+                        className="object-cover rounded w-[100px] h-[100px]"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between h-full">
@@ -176,7 +176,7 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                         </Button>
                       </div>
                     </div>
-                    <div className="font-semibold">
+                    {/* <div className="font-semibold">
                       {isUpdating ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
@@ -184,7 +184,7 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                           parseInt(item.totals?.line_total || '0') / 100
                         ).toLocaleString()}`
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 )
               })
@@ -194,7 +194,7 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
           </div>
 
           {/* Footer */}
-          <DrawerFooter className="bottom-0 absolute w-full bg-white pt-4">
+          <DrawerFooter className="bottom-0 absolute w-full bg-white p-0">
             <div className="px-4 border-t border-slate-200 flex justify-between items-center pt-2 mb-0">
               <h2 className="text-xl font-semibold">Subtotal</h2>
               <h2 className="text-xl font-semibold">

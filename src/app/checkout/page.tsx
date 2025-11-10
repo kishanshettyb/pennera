@@ -5,7 +5,7 @@ import { useGetAllCart } from '@/services/query/cart/cart'
 import { ArrowRight, Loader2, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUpdateCartItem, useRemoveFromCart } from '@/services/mutation/cart/cart'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -474,6 +474,7 @@ const AddressForm = React.memo(
 AddressForm.displayName = 'AddressForm'
 
 function CheckoutPage() {
+  const [isFixed, setIsFixed] = useState(true)
   const { data: cart, isLoading: cartLoading, refetch: refetchCart } = useGetAllCart()
   const { data: checkoutData, isLoading: checkoutLoading } = useGetCheckoutData()
   const { data: paymentGateways, isLoading: paymentGatewaysLoading } = useGetAllPaymentGateways()
@@ -897,13 +898,11 @@ function CheckoutPage() {
         discount_total: (totalDiscount / 100).toString(),
         total: (totalPrice / 100).toString()
       }
-
       console.log('Sending checkout payload without coupons:', payload)
       console.log('Total items:', totalItems)
       console.log('Total discount:', totalDiscount)
       console.log('Total shipping:', totalShipping)
       console.log('Total price:', totalPrice)
-
       createCheckoutMutation.mutate(payload, {
         onSuccess: (data: CheckoutResponse) => {
           console.log('Checkout successful:', data)
@@ -975,8 +974,39 @@ function CheckoutPage() {
   )
 
   const isLoading = cartLoading || checkoutLoading || paymentGatewaysLoading
+  useEffect(() => {
+    if (totalDiscount > 0 && cart?.coupons?.length) {
+      const existing = cart.coupons[0]?.code
+      if (existing && appliedCoupon !== existing) {
+        setAppliedCoupon(existing)
+        form.setValue('selected_coupon', existing)
+      }
+    }
+  }, [cart, totalDiscount, appliedCoupon, form])
+
   const isProcessingPayment =
     createCheckoutMutation.isPending || isRazorpayLoading || checkoutOrderMutation.isPending
+
+  useEffect(() => {
+    const target = document.getElementById('place-order')
+
+    const handleScroll = () => {
+      if (!target) return
+
+      const targetTop = target.getBoundingClientRect().top
+
+      // If the element is visible / reached, remove fixed
+      // if (targetTop <= window.innerHeight) {
+      if (targetTop <= 200) {
+        setIsFixed(false)
+      } else {
+        setIsFixed(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] py-20 md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
@@ -1043,7 +1073,10 @@ function CheckoutPage() {
           </div>
 
           <div className="w-full lg:w-1/4">
-            <div className="bg-slate-50 w-full p-6 text-slate-800 rounded-lg border border-slate-50 sticky top-6">
+            <div
+              id="place-order"
+              className="bg-slate-50   w-full p-6 text-slate-800 rounded-lg border border-slate-50 sticky top-6"
+            >
               <h2 className="text-xl font-semibold mb-4">Your Order</h2>
               <div className="p-4 bg-white rounded-2xl pb-0 space-y-4 max-h-[40vh] overflow-y-auto">
                 {isLoading ? (
@@ -1087,10 +1120,10 @@ function CheckoutPage() {
                             >
                               {item.name}
                             </Link>
-                            <p className="text-sm text-gray-500 mt-1">
+                            {/* <p className="text-sm text-gray-500 mt-1">
                               {currencySymbol}
                               {(parseInt(item.prices?.price || '0') / 100).toLocaleString()}
-                            </p>
+                            </p> */}
                           </div>
                           <div className="flex items-center gap-2 mt-2">
                             <Counter
@@ -1301,10 +1334,12 @@ function CheckoutPage() {
               </div>
 
               {/* Place Order Button */}
-              <div className="px-0 py-2">
+              <div
+                className={`px-0 py-2 ${isFixed ? `fixed lg:relative w-[80%] lg:w-auto bottom-0` : `px-0 py-2 relative`}`}
+              >
                 <Button
                   type="submit"
-                  className="w-full text-lg lg:py-6 cursor-pointer"
+                  className="w-full text-lg py-6 lg:py-6 cursor-pointer"
                   size="lg"
                   disabled={
                     isProcessingPayment ||

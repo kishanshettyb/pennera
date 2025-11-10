@@ -31,7 +31,7 @@ export const getCustomerById = async (customerId: number) => {
   return response.data
 }
 
-export const updateCustomer = async (customerId: number, data: unknown) => {
+export const updateCustomer = async (customerId: string, data) => {
   const response = await axiosInstance.post(`customers/${customerId}`, data)
   return response.data
 }
