@@ -15,7 +15,7 @@ export default function ResetRequest() {
     setMessage('')
 
     try {
-      const res = await fetch(`${change_pssword_url}`, {
+      const res = await fetch(`${change_pssword_url}/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

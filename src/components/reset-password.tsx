@@ -14,6 +14,7 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const change_password_url = process.env.NEXT_PUBLIC_CHANGE_PASSWORD
 
   useEffect(() => {
     if (!key || !login) {
@@ -36,7 +37,7 @@ export default function ResetPassword() {
     setMessage('')
 
     try {
-      const res = await fetch('https://app.disanmart.com/wp-json/custom/v1/set-new-password', {
+      const res = await fetch(`${change_password_url}/set-new-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key, login, password })
