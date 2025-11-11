@@ -1,6 +1,5 @@
 'use client'
 import { Button } from '@/components/ui/button'
-// import { Counter } from '@/components/ui/shadcn-io/counter'
 import { useGetAllCart } from '@/services/query/cart/cart'
 import { ArrowRight, Gift, Loader2 } from 'lucide-react'
 import Image from 'next/image'
@@ -955,40 +954,6 @@ function CheckoutPage() {
     ]
   )
 
-  // const handleUpdateQuantity = React.useCallback(
-  //   (itemKey: string, quantity: number) => {
-  //     if (quantity < 1) return
-
-  //     setUpdatingItems((prev) => new Set(prev).add(itemKey))
-  //     updateCartItem.mutate(
-  //       { key: itemKey, quantity },
-  //       {
-  //         onSettled: () =>
-  //           setUpdatingItems((prev) => {
-  //             const newSet = new Set(prev)
-  //             newSet.delete(itemKey)
-  //             return newSet
-  //           })
-  //       }
-  //     )
-  //   },
-  //   [updateCartItem]
-  // )
-
-  // const handleRemoveItem = React.useCallback(
-  //   (itemKey: string) => {
-  //     setRemovingItems((prev) => new Set(prev).add(itemKey))
-  //     removeCartItem.mutate(itemKey, {
-  //       onSettled: () =>
-  //         setRemovingItems((prev) => {
-  //           const newSet = new Set(prev)
-  //           newSet.delete(itemKey)
-  //           return newSet
-  //         })
-  //     })
-  //   },
-  //   [removeCartItem]
-  // )
   const isLoading = cartLoading || checkoutLoading || paymentGatewaysLoading
   const isProcessingPayment =
     createCheckoutMutation.isPending || isRazorpayLoading || checkoutOrderMutation.isPending
@@ -1140,7 +1105,8 @@ function CheckoutPage() {
                             <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
                             `${currencySymbol}${(
-                              parseInt(item.totals?.line_total || '0') / 100
+                              (parseInt(item.prices?.price || '0') * item.quantity) /
+                              100
                             ).toLocaleString()}`
                           )}
                         </div>
