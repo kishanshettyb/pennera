@@ -3,8 +3,18 @@ import CategoryLinks from '@/components/categoryLinks'
 import ProductImage from '@/components/productImage'
 import CategorySection from '@/components/products/category-section'
 import VideoBanner from '@/components/video-banner'
+import { useCustomerData } from './hooks/useCustomerData'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const { customerData } = useCustomerData()
+
+  useEffect(() => {
+    if (customerData && customerData.length > 0) {
+      console.log('Customer data fetched:', customerData[0])
+      console.log('Customer ID stored in context:', customerData[0].id)
+    }
+  }, [customerData])
   return (
     <div>
       <VideoBanner />
