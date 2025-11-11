@@ -59,7 +59,8 @@ export default function CategorySection({
   }
 
   return (
-    <section className="py-[100px] bg-[url('/banner/background-new.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center">
+    // bg-[url('/banner/background-new.png')]
+    <section className="py-[100px] bg-slate-950  bg-cover bg-center bg-no-repeat flex items-center justify-center">
       <div className="w-full mx-auto px-4 sm:px-6 sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1560px] 2xl:max-w-[1560px]">
         <CategorySliderNew items={transformedCategories} />
       </div>

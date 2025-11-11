@@ -128,8 +128,8 @@ function Header() {
               <Image
                 className="w-auto h-[60px]"
                 src="/logo.png"
-                width="1000"
-                height="1000"
+                width="100"
+                height="100"
                 alt="Penerra"
               />
             </Link>

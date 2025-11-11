@@ -65,7 +65,7 @@ function CategorySliderNew({ items }: CategorySliderProps) {
             >
               <Link href={`/shop?category=${item.id}`}>
                 <div className="p-4">
-                  <div className="bg-slate-950 rounded-2xl  overflow-hidden">
+                  <div className="bg-black border border-slate-800 rounded-2xl  overflow-hidden">
                     {item.categoryImage && (
                       <Image
                         width="1000"
