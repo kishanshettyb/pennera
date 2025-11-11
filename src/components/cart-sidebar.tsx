@@ -290,49 +290,52 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
               </h2>
             </div>
 
-            <div className="px-4 mb-5 mt-2">
+            <div className="px-4 py-2">
               <p className="text-xs opacity-80">Taxes and shipping calculated at checkout</p>
             </div>
 
             {/* Buttons */}
             <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between items-center px-4 mb-5">
-              <DrawerClose asChild>
-                <Link href="/cart">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full cursor-pointer"
-                    disabled={isAnyActionPending}
-                  >
-                    View Cart
-                  </Button>
-                </Link>
-              </DrawerClose>
-
-              {isLoggedIn ? (
+              <div>
                 <DrawerClose asChild>
-                  <Button
-                    asChild
-                    size="lg"
-                    className="w-full"
-                    disabled={isAnyActionPending || totalItems === 0}
-                    onClick={onClose}
-                  >
-                    <Link href="/checkout">
-                      {isAnyActionPending ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          Processing...
-                        </>
-                      ) : (
-                        'Proceed to Checkout'
-                      )}
-                    </Link>
-                  </Button>
+                  <Link href="/cart">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="w-full cursor-pointer"
+                      disabled={isAnyActionPending}
+                    >
+                      View Cart
+                    </Button>
+                  </Link>
                 </DrawerClose>
-              ) : (
-                <LoginRegisterModal />
-              )}
+              </div>
+              <div>
+                {isLoggedIn ? (
+                  <DrawerClose asChild>
+                    <Button
+                      asChild
+                      size="lg"
+                      className="w-full"
+                      disabled={isAnyActionPending || totalItems === 0}
+                      onClick={onClose}
+                    >
+                      <Link href="/checkout">
+                        {isAnyActionPending ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                            Processing...
+                          </>
+                        ) : (
+                          'Proceed to Checkout'
+                        )}
+                      </Link>
+                    </Button>
+                  </DrawerClose>
+                ) : (
+                  <LoginRegisterModal />
+                )}
+              </div>
             </div>
           </DrawerFooter>
         </div>
