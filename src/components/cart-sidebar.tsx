@@ -17,16 +17,38 @@ import Image from 'next/image'
 import { useGetAllCart } from '@/services/query/cart/cart'
 import { useUpdateCartItem, useRemoveFromCart } from '@/services/mutation/cart/cart'
 import { LoginRegisterModal } from './login-register-modal'
-// import { LoginRegisterModal } from './login-register-modal'
 
-type CartItem = {
+/* -------------------- TYPES -------------------- */
+interface CartItem {
   key: string
   name: string
-  quantity: number
+  quantity: number | string
   permalink: string
   images?: { thumbnail?: string; alt?: string }[]
-  prices?: { price?: string }
-  totals?: { line_total?: string }
+  prices?: { price?: string | number }
+  totals?: { line_total?: string | number }
+}
+
+interface Coupon {
+  code: string
+  discount_type?: string
+  totals?: {
+    total_discount?: string | number
+    total_discount_amount?: string | number
+  }
+}
+
+interface CartTotals {
+  total_price?: string | number
+  subtotal?: string | number
+  currency_symbol?: string
+}
+
+interface CartData {
+  items?: CartItem[]
+  items_count?: number
+  totals?: CartTotals
+  coupons?: Coupon[]
 }
 
 interface CartDetailsProps {
@@ -34,32 +56,70 @@ interface CartDetailsProps {
   onClose: () => void
 }
 
+/* -------------------- HELPERS -------------------- */
+function parseIntSafe(v: unknown): number {
+  if (v == null) return 0
+  if (typeof v === 'number') return Math.round(v)
+  const cleaned = String(v).replace(/[^\d-]/g, '')
+  const n = parseInt(cleaned, 10)
+  return isNaN(n) ? 0 : n
+}
+
+function formatCurrencyFromPaise(valuePaise: number, symbol = '₹'): string {
+  const rupees = valuePaise / 100
+  return `${symbol}${rupees.toLocaleString('en-IN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`
+}
+
+/* -------------------- COMPONENT -------------------- */
 export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
-  const { data: cart, isLoading } = useGetAllCart()
+  const { data: cart, isLoading } = useGetAllCart() as {
+    data: CartData | undefined
+    isLoading: boolean
+  }
   const updateCartItem = useUpdateCartItem()
   const removeCartItem = useRemoveFromCart()
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
   React.useEffect(() => {
-    const checkLoginStatus = () => {
-      const session = localStorage.getItem('session')
-      setIsLoggedIn(session === 'true')
-    }
-
+    const checkLoginStatus = () => setIsLoggedIn(localStorage.getItem('session') === 'true')
     checkLoginStatus()
     window.addEventListener('storage', checkLoginStatus)
-    return () => {
-      window.removeEventListener('storage', checkLoginStatus)
-    }
+    return () => window.removeEventListener('storage', checkLoginStatus)
   }, [])
 
   const [updatingItems, setUpdatingItems] = React.useState<Set<string>>(new Set())
   const [removingItems, setRemovingItems] = React.useState<Set<string>>(new Set())
 
   const totalItems = cart?.items_count || 0
-  const totalPrice = cart?.totals?.total_price || 0
   const currencySymbol = cart?.totals?.currency_symbol || '₹'
 
+  /* -------------------- CALCULATIONS -------------------- */
+  const calculatedSubtotal =
+    cart?.items?.reduce((acc, item) => {
+      const price = parseIntSafe(item.prices?.price)
+      const qty = parseIntSafe(item.quantity)
+      return acc + price * qty
+    }, 0) || 0
+
+  let couponDiscount = 0
+  let appliedCoupons: string[] = []
+
+  if (Array.isArray(cart?.coupons) && cart.coupons.length > 0) {
+    couponDiscount = cart.coupons.reduce((acc, coupon) => {
+      const val = parseIntSafe(
+        coupon.totals?.total_discount ?? coupon.totals?.total_discount_amount ?? 0
+      )
+      return acc + val
+    }, 0)
+    appliedCoupons = cart.coupons.map((c) => c.code).filter(Boolean)
+  }
+
+  const finalTotal = Math.max(0, calculatedSubtotal - couponDiscount)
+
+  /* -------------------- MUTATION HANDLERS -------------------- */
   const handleUpdateQuantity = (itemKey: string, quantity: number) => {
     setUpdatingItems((prev) => new Set(prev).add(itemKey))
     updateCartItem.mutate(
@@ -67,9 +127,9 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
       {
         onSettled: () =>
           setUpdatingItems((prev) => {
-            const newSet = new Set(prev)
-            newSet.delete(itemKey)
-            return newSet
+            const next = new Set(prev)
+            next.delete(itemKey)
+            return next
           })
       }
     )
@@ -80,15 +140,16 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
     removeCartItem.mutate(itemKey, {
       onSettled: () =>
         setRemovingItems((prev) => {
-          const newSet = new Set(prev)
-          newSet.delete(itemKey)
-          return newSet
+          const next = new Set(prev)
+          next.delete(itemKey)
+          return next
         })
     })
   }
 
   const isAnyActionPending = updatingItems.size > 0 || removingItems.size > 0
 
+  /* -------------------- RENDER -------------------- */
   return (
     <Drawer open={isOpen} onOpenChange={onClose} direction="right">
       <DrawerContent>
@@ -115,20 +176,24 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                 <span className="ml-2">Loading cart...</span>
               </div>
             ) : cart?.items?.length ? (
-              (cart.items as CartItem[]).map((item) => {
+              cart.items.map((item) => {
                 const isUpdating = updatingItems.has(item.key)
                 const isRemoving = removingItems.has(item.key)
-                const isItemDisabled = isUpdating || isRemoving
+                const isDisabled = isUpdating || isRemoving
+
+                const itemPrice = parseIntSafe(item.prices?.price)
+                const qty = parseIntSafe(item.quantity)
+                const itemTotal = itemPrice * qty
 
                 return (
                   <div
                     key={item.key}
                     className={`flex gap-3 items-center justify-between border-b border-gray-200 pb-3 ${
-                      isItemDisabled ? 'opacity-50' : ''
+                      isDisabled ? 'opacity-50' : ''
                     }`}
                   >
                     <div className="w-[70px] h-[80px] relative">
-                      {isItemDisabled && (
+                      {isDisabled && (
                         <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center rounded z-10">
                           <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
                         </div>
@@ -137,36 +202,36 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                         src={item.images?.[0]?.thumbnail || '/placeholder.png'}
                         alt={item.images?.[0]?.alt || item.name}
                         fill
-                        className="object-cover rounded w-[100px] h-[100px]"
+                        className="object-cover rounded"
                       />
                     </div>
-                    <div className="flex-1 flex flex-col justify-between h-full">
+
+                    <div className="flex-1 flex flex-col justify-between">
                       <div>
                         <Link
                           href={item.permalink}
                           className={`font-medium hover:underline text-xs line-clamp-1 ${
-                            isItemDisabled ? 'pointer-events-none' : ''
+                            isDisabled ? 'pointer-events-none' : ''
                           }`}
                           onClick={onClose}
                         >
                           {item.name}
                         </Link>
                         <p className="text-xs text-gray-500 mt-1">
-                          {currencySymbol}
-                          {(parseInt(item.prices?.price || '0') / 100).toLocaleString()}
+                          {formatCurrencyFromPaise(itemPrice, currencySymbol)} × {qty}
                         </p>
                       </div>
                       <div className="flex items-center gap-2 mt-2">
                         <Counter
-                          number={item.quantity}
-                          setNumber={(qty) => handleUpdateQuantity(item.key, qty)}
+                          number={qty}
+                          setNumber={(newQty) => handleUpdateQuantity(item.key, newQty)}
                         />
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-red-500 cursor-pointer"
+                          className="text-red-500"
                           onClick={() => handleRemoveItem(item.key)}
-                          disabled={isItemDisabled}
+                          disabled={isDisabled}
                         >
                           {isRemoving ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -176,15 +241,14 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
                         </Button>
                       </div>
                     </div>
-                    {/* <div className="font-semibold">
+
+                    <div className="font-semibold">
                       {isUpdating ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
-                        `${currencySymbol}${(
-                          parseInt(item.totals?.line_total || '0') / 100
-                        ).toLocaleString()}`
+                        formatCurrencyFromPaise(itemTotal, currencySymbol)
                       )}
-                    </div> */}
+                    </div>
                   </div>
                 )
               })
@@ -195,65 +259,80 @@ export function CartSidebar({ isOpen, onClose }: CartDetailsProps) {
 
           {/* Footer */}
           <DrawerFooter className="bottom-0 absolute w-full bg-white p-0">
-            <div className="px-4 border-t border-slate-200 flex justify-between items-center pt-2 mb-0">
-              <h2 className="text-xl font-semibold">Subtotal</h2>
-              <h2 className="text-xl font-semibold">
+            {/* Coupon Section */}
+            {appliedCoupons.length > 0 && (
+              <div className="px-4 border-t border-slate-200 pt-3 space-y-1">
+                {appliedCoupons.map((code) => (
+                  <div key={code} className="flex justify-between items-center text-slate-600">
+                    <span className="text-xs">
+                      Coupon Applied: <span className="font-semibold">{code}</span>
+                    </span>
+                  </div>
+                ))}
+                <div className="flex justify-between items-center text-green-600">
+                  <span className="text-sm font-medium">Coupon Discount</span>
+                  <span className="text-sm font-medium">
+                    -{formatCurrencyFromPaise(couponDiscount, currencySymbol)}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Final Total */}
+            <div className="px-4 flex justify-between items-center pt-3 border-t border-slate-200">
+              <h2 className="text-lg font-semibold">Subtotal</h2>
+              <h2 className="text-lg font-semibold">
                 {isAnyActionPending ? (
-                  <Loader2 className="h-6 w-6 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                  `${currencySymbol}${(parseInt(totalPrice) / 100).toLocaleString()}`
+                  formatCurrencyFromPaise(finalTotal, currencySymbol)
                 )}
               </h2>
             </div>
 
-            <div className="px-4 mb-5">
+            <div className="px-4 mb-5 mt-2">
               <p className="text-xs opacity-80">Taxes and shipping calculated at checkout</p>
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col gap-y-5 md:flex-row gap-x-5 justify-between items-center px-4 mb-5">
-              <div className="w-full lg:w-1/4">
-                <DrawerClose asChild>
-                  <Link href="/cart">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="w-full cursor-pointer"
-                      disabled={isAnyActionPending}
-                      onClick={onClose}
-                    >
-                      View Cart
-                    </Button>
-                  </Link>
-                </DrawerClose>
-              </div>
+            <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between items-center px-4 mb-5">
+              <DrawerClose asChild>
+                <Link href="/cart">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full cursor-pointer"
+                    disabled={isAnyActionPending}
+                  >
+                    View Cart
+                  </Button>
+                </Link>
+              </DrawerClose>
 
-              <div className="w-full lg:w-3/4">
-                {isLoggedIn ? (
-                  <DrawerClose asChild>
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full"
-                      disabled={isAnyActionPending || totalItems === 0}
-                      onClick={onClose}
-                    >
-                      <Link href="/checkout">
-                        {isAnyActionPending ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                            Processing...
-                          </>
-                        ) : (
-                          'Proceed to Checkout'
-                        )}
-                      </Link>
-                    </Button>
-                  </DrawerClose>
-                ) : (
-                  <LoginRegisterModal />
-                )}
-              </div>
+              {isLoggedIn ? (
+                <DrawerClose asChild>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full"
+                    disabled={isAnyActionPending || totalItems === 0}
+                    onClick={onClose}
+                  >
+                    <Link href="/checkout">
+                      {isAnyActionPending ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          Processing...
+                        </>
+                      ) : (
+                        'Proceed to Checkout'
+                      )}
+                    </Link>
+                  </Button>
+                </DrawerClose>
+              ) : (
+                <LoginRegisterModal />
+              )}
             </div>
           </DrawerFooter>
         </div>
